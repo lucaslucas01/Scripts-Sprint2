@@ -19,8 +19,6 @@ line vty 0 15
 transport input ssh 
 login local 
 exec-timeout 600
-password SenhadaVTY
-login
 exit
 login block-for 180 attempts 3 within 60 
 security password min-length 8
