@@ -20,8 +20,6 @@ line vty 0 15
 transport input ssh
 login local
 exec-timeout 600
-password SenhadaVTY
-login
 exit
 login block-for 180 attempts 3 within 60
 security password min-length 8
@@ -44,13 +42,21 @@ name Voz
 vlan 90
 name Financas
 vlan 99
-name Native VLAN
+name NativeVlan
+interface fastethernet 0/1
+switchport mode access
+switchport access vlan 99
+exit
 interface g0/2
+switchport mode access
+switchport access vlan 99
 switchport mode trunk
 switchport trunk native vlan 99
 switchport trunk allowed vlan 10,20,30,40,50,60,70,80,90,99
-no shut down
+no shutdown
 interface g0/1
+switchport mode access
+switchport access vlan 99
 switchport mode trunk
 switchport trunk native vlan 99
 switchport trunk allowed vlan 10,20,30,40,50,60,70,80,90,99
