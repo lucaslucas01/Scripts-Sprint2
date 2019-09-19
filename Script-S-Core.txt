@@ -1,0 +1,59 @@
+enable
+configure terminal
+ip default-gateway 172.16.20.33
+enable secret SenhadaEnable
+hostname S-Core
+banner motd "ACESSO APENAS PARA A CASA TULLY!"
+line console 0
+password SenhadaConsole
+login
+exit
+service password-encryption
+ip domain-name peachanddaisy.local
+crypto key generate rsa general-key modulus 1024
+username fagnersantos privilege 15 secret SenhaFagner
+username gabrielpereira privilege 15 secret SenhaGabriel
+username lucasrodrigues privilege 15 secret SenhaLucas
+username eliasafrodrigues privilege 15 secret SenhaEliasaf
+username andresantos privilege 15 secret SenhaAndre
+line vty 0 15
+transport input ssh
+login local
+exec-timeout 600
+password SenhadaVTY
+login
+exit
+login block-for 180 attempts 3 within 60
+security password min-length 8
+vlan 10
+name RH
+vlan 20
+name Qualidade
+vlan 30
+name Recepcao
+vlan 40
+name Consultores
+vlan 50
+name Analistas
+vlan 60
+name TI
+vlan 70
+name Administracao
+vlan 80
+name Voz
+vlan 90
+name Financas
+vlan 99
+name Native VLAN
+interface g0/2
+switchport mode trunk
+switchport trunk native vlan 99
+switchport trunk allowed vlan 10,20,30,40,50,60,70,80,90,99
+no shut down
+interface g0/1
+switchport mode trunk
+switchport trunk native vlan 99
+switchport trunk allowed vlan 10,20,30,40,50,60,70,80,90,99
+no shutdown
+end
+wr
